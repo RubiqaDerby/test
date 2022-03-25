@@ -1,0 +1,37 @@
+  <body class="home">
+
+<?php include('inc.header.phtml') ?>
+
+    <div class="container-fluid" id="headlineBox">
+      <div class="blur"><div></div></div>
+      <div class="container">
+        <div class="shape"></div>
+        <h1>Sell your property from just <span class="highlight">&pound;499</span><span class="lowlight">+VAT</span></h1>
+        <h2>Selling made simple...</h2>
+<?php
+if (false !== ($sellingNode = icmGetNode($config->icm->nodes->selling))) {
+    echo '<a class="gradient" href="' . $sellingNode->getFullURL(0, true) . '">Let\'s get started!</a>' . "\r\n";
+}//if
+
+if (false !== ($corporateNode = icmGetNode($config->icm->nodes->corporate))) {
+    echo '<p>A modern estate agency specialising in shared ownership and new build properties. Click <a href="' . $corporateNode->getFullURL(0, true) . '">here</a> to find out how we can help your company today.</p>' . "\r\n";
+}//if
+?>
+      </div>
+    </div>
+<?php include('_content.phtml') ?>
+<?php include('inc.footer.phtml') ?>
+
+  </body>
+</html>
+<?php
+$strOutput = iiLayout::render();
+if ($config->server_cache->caching) {
+
+    //Cache this page
+    soloCacheServerPage($currentNode, $strOutput);
+
+    //Now remove any flag that stops this page being cached in future
+    icmEnableServerCaching();
+
+}//if
